@@ -31,12 +31,12 @@ final class AuraDIWrapper
      */
     public static function init($service_group_name = 'system')
     {
-        static::setPresetServices(DIPresetServices::get($service_group_name));
+        static::setPresetServices($service_group_name, DIPresetServices::get($service_group_name));
         
         static::setContainer(
             static::registryServices(
                 static::initContainer(static::$aura_di),
-                static::getPresetServices()
+                static::getPresetServices($service_group_name)
             )
         );
         
@@ -69,17 +69,25 @@ final class AuraDIWrapper
     /**
      * DIコンテナに登録するサービスのプリセットのリストを取得します。
      *
+     * @param String $service_group_name プリセットサービス一覧のグループ名
+     *
      * @return Array サービスのプリセットのリスト
      */
-    private static function getPresetServices()
+    private static function getPresetServices($service_group_name)
     {
-        return static::$preset_list;
+        return static::$preset_list[$service_group_name];
     }
-    
-    private static function setPresetServices(array $services)
+
+    /**
+     * DIコンテナに登録するサービスのプリセットのリストを設定します。
+     * 
+     * @param String $service_group_name プリセットサービス一覧のグループ名
+     * @param Array $services            登録するサービスのプリセットのリスト
+     */
+    private static function setPresetServices($service_group_name, array $services)
     {
-        if (empty(static::$preset_list)) {
-            static::$preset_list = $services;
+        if (isset(static::$preset_list) === false) {
+            static::$preset_list[$service_group_name] = $services;
         }
     }
     
