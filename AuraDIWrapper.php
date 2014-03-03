@@ -86,7 +86,7 @@ final class AuraDIWrapper
      */
     private static function setPresetServices($service_group_name, array $services)
     {
-        if (isset(static::$preset_list) === false) {
+        if (isset(static::$preset_list[$service_group_name]) === false) {
             static::$preset_list[$service_group_name] = $services;
         }
     }
