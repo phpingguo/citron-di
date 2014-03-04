@@ -100,7 +100,7 @@ final class DIPresetServices
         $dir   = realpath(__DIR__) . DIRECTORY_SEPARATOR . 'config';
         $file  = "{$service_group_name}_preset_services.yml";
         $path  = $dir . DIRECTORY_SEPARATOR . $file;
-        $value = (new Parser())->parse(file_get_contents($path));
+        $value = is_file($path) ? (new Parser())->parse(file_get_contents($path)) : null;
         
         return is_array($value) ? $value : null;
     }
