@@ -22,14 +22,14 @@ final class DIPresetServices
     /**
      * DIコンテナラッパーが使用するプリセットサービスの一覧を取得します。
      * 
-     * @param String $service_group_name             プリセットサービス一覧のグループ名
-     * @param Boolean $is_force_reset [初期値=false] 強制的に初期化するかどうか
+     * @param String $service_group_name プリセットサービス一覧のグループ名
+     * @param String $service_group_path プリセットサービス一覧ファイルがあるディレクトリのパス
      * 
      * @return Array DIコンテナラッパーが使用するプリセットサービスの一覧
      */
-    public static function get($service_group_name, $is_force_reset = false)
+    public static function get($service_group_name, $service_group_path)
     {
-        return static::getInitializedList($service_group_name, $is_force_reset);
+        return static::getInitializedList($service_group_name, $service_group_path);
     }
     
     // ---------------------------------------------------------------------------------------------
@@ -39,14 +39,17 @@ final class DIPresetServices
      * 初期化済みのDIコンテナラッパーが使用するプリセットサービスの一覧を取得します。
      * 
      * @param String $service_group_name プリセットサービス一覧のグループ名
-     * @param Boolean $is_force_reset    強制的に初期化するかどうか
+     * @param String $service_group_path プリセットサービス一覧ファイルがあるディレクトリのパス
      * 
      * @return Array DIコンテナラッパーが使用するプリセットサービスの一覧
      */
-    private static function getInitializedList($service_group_name, $is_force_reset)
+    private static function getInitializedList($service_group_name, $service_group_path)
     {
-        if (static::isInitialized($service_group_name, $is_force_reset)) {
-            static::setPresetServices($service_group_name, static::getParsedServices($service_group_name));
+        if (static::isInitialized($service_group_name, $service_group_path)) {
+            static::setPresetServices(
+                $service_group_name,
+                static::getParsedServices($service_group_name, $service_group_path)
+            );
         }
         
         return static::getPresetServices($service_group_name);
@@ -56,13 +59,13 @@ final class DIPresetServices
      * プリセットサービスの一覧を初期化するかどうかを判定します。
      * 
      * @param String $service_group_name プリセットサービス一覧のグループ名
-     * @param Boolean $is_force_reset 強制的に初期化するかどうか
+     * @param String $service_group_path プリセットサービス一覧ファイルがあるディレクトリのパス
      * 
      * @return Boolean 初期化処理を実行する場合は true。それ以外の場合は false。
      */
-    private static function isInitialized($service_group_name, $is_force_reset)
+    private static function isInitialized($service_group_name, $service_group_path)
     {
-        return (empty(static::$preset_services[$service_group_name]) || $is_force_reset === true);
+        return (empty(static::$preset_services[$service_group_name]) && is_dir($service_group_path) === true);
     }
 
     /**
@@ -92,16 +95,15 @@ final class DIPresetServices
      * プリセットサービスの一覧を定義しているファイルの解析結果を配列として取得します。
      * 
      * @param String $service_group_name プリセットサービス一覧のグループ名
+     * @param String $service_group_path プリセットサービス一覧ファイルがあるディレクトリのパス
      * 
-     * @return Array|null 解析成功時はプリセットサービスの配列。解析失敗時は null。
+     * @return Array 解析成功時はプリセットサービスの配列。解析失敗時は空配列。
      */
-    private static function getParsedServices($service_group_name)
+    private static function getParsedServices($service_group_name, $service_group_path)
     {
-        $dir   = realpath(__DIR__) . DIRECTORY_SEPARATOR . 'config';
-        $file  = "{$service_group_name}_preset_services.yml";
-        $path  = $dir . DIRECTORY_SEPARATOR . $file;
+        $path  = $service_group_path . DIRECTORY_SEPARATOR . "{$service_group_name}_preset_services.yml";
         $value = is_file($path) ? (new Parser())->parse(file_get_contents($path)) : null;
         
-        return is_array($value) ? $value : null;
+        return is_array($value) ? $value : [];
     }
 }
