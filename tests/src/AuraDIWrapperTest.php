@@ -17,7 +17,9 @@ class AuraDIWrapperTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetClass($group_name, $class_name)
     {
-        $group_path = realpath(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config';
+        $group_path = realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config'
+        );
         $instance   = AuraDIWrapper::init($group_name, $group_path)->get($class_name);
         
         $this->assertInstanceOf($class_name, $instance);
