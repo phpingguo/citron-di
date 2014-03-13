@@ -26,7 +26,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Phpingguo\\CitronDI\\": ""
+            "Phpingguo\\CitronDI\\": "src/",
+            "Phpingguo\\CitronDI\\Tests\\": "tests/src/"
         }
     }
 }

@@ -18,7 +18,9 @@ class DIPresetServicesTest extends \PHPUnit_Framework_TestCase
      */
     public function testGetClass($group_name, $count, $expected)
     {
-        $group_path = realpath(__DIR__) . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config';
+        $group_path = realpath(
+            __DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'config'
+        );
         $services   = DIPresetServices::get($group_name, $group_path);
         
         $this->assertNotEmpty($services);
