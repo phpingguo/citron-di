@@ -28,7 +28,7 @@ final class AuraDIWrapper
      * @param String $service_group_name プリセットサービス一覧のグループ名
      * @param String $service_group_path プリセットサービス一覧ファイルがあるディレクトリのパス
      * 
-     * @return \Aura\Di\Container 初期化したクラスが保持する DI コンテナのインスタンスを返します。
+     * @return Container 初期化したクラスが保持するDIコンテナのインスタンス
      */
     public static function init($service_group_name, $service_group_path)
     {
@@ -42,6 +42,16 @@ final class AuraDIWrapper
         );
         
         return static::getContainer();
+    }
+
+    /**
+     * DIコンテナのインスタンスを取得します。
+     *
+     * @return Container DIコンテナのインスタンス
+     */
+    public static function getInstantContainer()
+    {
+        return static::initContainer();
     }
     
     // ---------------------------------------------------------------------------------------------

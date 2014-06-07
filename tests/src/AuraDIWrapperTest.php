@@ -25,4 +25,12 @@ class AuraDIWrapperTest extends \PHPUnit_Framework_TestCase
         $this->assertInstanceOf($class_name, $instance);
         $this->assertSame("$class_name::getExecMethodName", $instance->getExecMethodName());
     }
+
+    public function testGetInstantContainer()
+    {
+        $instance = AuraDIWrapper::getInstantContainer();
+
+        $this->assertNotEmpty($instance);
+        $this->assertInstanceOf('Aura\Di\Container', $instance);
+    }
 }
