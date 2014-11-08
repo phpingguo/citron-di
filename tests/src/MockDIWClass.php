@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\CitronDI\Tests;
+namespace Phpeel\CitronDI\Tests;
 
 class MockDIWClass
 {
