@@ -1,7 +1,7 @@
 <?php
-namespace Phpingguo\CitronDI\Tests;
+namespace Phpeel\CitronDI\Tests;
 
-use Phpingguo\CitronDI\DIPresetServices;
+use Phpeel\CitronDI\DIPresetServices;
 use Symfony\Component\Yaml\Parser;
 
 class DIPresetServicesTest extends \PHPUnit_Framework_TestCase
@@ -9,7 +9,7 @@ class DIPresetServicesTest extends \PHPUnit_Framework_TestCase
     public function providerGetClass()
     {
         return [
-            [ 'tests', 1, [ 'Phpingguo\CitronDI\Tests\MockDIWClass' ] ],
+            [ 'tests', 1, [ 'Phpeel\CitronDI\Tests\MockDIWClass' ] ],
         ];
     }
 
