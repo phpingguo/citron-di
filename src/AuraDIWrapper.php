@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\CitronDI;
+namespace Phpeel\CitronDI;
 
 use Aura\Di\Config as DiConfig;
 use Aura\Di\Container;

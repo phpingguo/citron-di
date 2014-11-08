@@ -1,14 +1,14 @@
 <?php
-namespace Phpingguo\CitronDI\Tests;
+namespace Phpeel\CitronDI\Tests;
 
-use Phpingguo\CitronDI\AuraDIWrapper;
+use Phpeel\CitronDI\AuraDIWrapper;
 
 class AuraDIWrapperTest extends \PHPUnit_Framework_TestCase
 {
     public function providerGetClass()
     {
         return [
-            [ 'tests', 'Phpingguo\CitronDI\Tests\MockDIWClass' ],
+            [ 'tests', 'Phpeel\CitronDI\Tests\MockDIWClass' ],
         ];
     }
     

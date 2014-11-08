@@ -1,5 +1,5 @@
 <?php
-namespace Phpingguo\CitronDI;
+namespace Phpeel\CitronDI;
 
 use Symfony\Component\Yaml\Parser;
 
